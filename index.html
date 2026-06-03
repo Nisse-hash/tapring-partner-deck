@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tapring — NFC Smart Rings for Events &amp; Conferences</title>
+  <meta name="description" content="Give every guest a ring that carries their digital identity. Tapring NFC rings for conferences, salons, and corporate events." />
+  <link rel="icon" href="https://tap-ring.com/images/logos/tapring-logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0A0F;
+      --card: #13131A;
+      --border: rgba(255,255,255,0.07);
+      --gold: #C9A84C;
+      --gold-bright: #F0B429;
+      --text: #FFFFFF;
+      --muted: #999999;
+      --dim: #666;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { width: 34px; height: 34px; display: block; }
+    .nav-logo span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: #0A0A0F;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 9px 22px;
+      border-radius: 50px;
+      transition: opacity 0.2s;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.25);
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 45%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 700px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      position: relative;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: #0A0A0F;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 50px;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--muted);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+    /* ── Shared section layout ── */
+    .section {
+      padding: 96px 40px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 52px;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ── How it works ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+    }
+
+    .step-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: rgba(201,168,76,0.14);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .step-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ── Options ── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .option-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+    }
+
+    .option-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .option-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+    .option-card p { color: var(--muted); font-size: 0.87rem; line-height: 1.7; margin-bottom: 20px; }
+
+    .option-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(201,168,76,0.07);
+      border: 1px solid rgba(201,168,76,0.16);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    /* ── Ring collection ── */
+    .rings-section {
+      padding: 96px 40px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .ring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .ring-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .ring-card:hover {
+      border-color: rgba(201,168,76,0.28);
+      transform: translateY(-2px);
+    }
+
+    .ring-img-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0D0D15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .ring-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ring-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+    }
+
+    .ring-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .ring-desc { font-size: 0.74rem; color: var(--dim); line-height: 1.5; }
+
+    /* ── Sport teaser ── */
+    .sport-section {
+      background: #0D0D14;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 88px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sport-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 300px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .sport-badge {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.22);
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .sport-section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      max-width: 460px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .sport-section p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      max-width: 420px;
+      margin: 0 auto 32px;
+      position: relative;
+      line-height: 1.75;
+    }
+
+    .sport-features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .sport-tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    /* ── Why events ── */
+    .why-section {
+      padding: 96px 40px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+
+    .why-icon { font-size: 1.5rem; margin-bottom: 14px; }
+    .why-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 8px; }
+    .why-card p { color: var(--muted); font-size: 0.83rem; line-height: 1.7; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo { display: flex; align-items: center; gap: 10px; }
+    .footer-logo img { width: 26px; height: 26px; }
+    .footer-logo span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+    }
+
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { color: var(--dim); font-size: 0.83rem; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 96px 20px 60px; }
+      .section, .rings-section, .why-section { padding: 64px 20px; }
+      footer { padding: 36px 20px; }
+
+      .ring-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="https://tap-ring.com/images/logos/tapring-logo.svg" alt="Tapring" />
+      <span>TAPRING</span>
+    </div>
+    <a href="mailto:contact@tap-ring.com" class="nav-cta">Get in touch</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+    <p class="hero-eyebrow">For Events &amp; Conferences</p>
+    <h1>Turn every handshake into a <em>lasting connection.</em></h1>
+    <p class="hero-sub">Give your guests a ring that carries their digital identity everywhere. One tap, and they're remembered.</p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn-primary">See the Collection &darr;</a>
+      <a href="mailto:contact@tap-ring.com" class="btn-ghost">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">Three steps. Zero friction.</h2>
+    <p class="section-sub">Tapring combines NFC technology with a simple web platform. No app download required for anyone on the receiving end.</p>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3>The ring ships ready</h3>
+        <p>Each Tapring contains an NFC chip with a unique URL embedded at the factory. A permanent, tamper-proof digital identity in a piece of jewelry.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3>Recipient claims their ring</h3>
+        <p>They tap their phone to the ring, land on their personal page, and log in to take ownership. The whole process takes under two minutes.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3>They customize, you forget</h3>
+        <p>The owner manages everything from a clean dashboard. You never touch it again. Their profile lives in the ring, updated in real time, forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- WHAT THEY CAN DO -->
+  <section class="section">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">One ring, two powerful modes.</h2>
+    <p class="section-sub">Every Tapring owner chooses how their ring behaves. They can switch at any time — no hardware change, no reissue.</p>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-icon">💳</div>
+        <h3>Digital business card</h3>
+        <p>A beautiful personal profile page — photo, name, job title, bio, and all their links in one place. Anyone who taps the ring sees the card instantly, no app needed.</p>
+        <div class="option-tags">
+          <span class="tag">Name &amp; Photo</span>
+          <span class="tag">Job Title</span>
+          <span class="tag">Bio</span>
+          <span class="tag">Social Links</span>
+          <span class="tag">Save Contact</span>
+        </div>
+      </div>
+      <div class="option-card">
+        <div class="option-icon">🔗</div>
+        <h3>Smart redirect</h3>
+        <p>Skip the profile entirely. The ring sends anyone who taps it straight to any URL they choose — a website, a booking calendar, a LinkedIn page, an online store.</p>
+        <div class="option-tags">
+          <span class="tag">Website</span>
+          <span class="tag">Booking Page</span>
+          <span class="tag">LinkedIn</span>
+          <span class="tag">Portfolio</span>
+          <span class="tag">Any URL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- RING COLLECTION -->
+  <section class="rings-section" id="collection">
+    <p class="section-label">The Collection</p>
+    <h2 class="section-title">Seven models. One platform.</h2>
+    <p class="section-sub" style="margin-bottom: 40px;">Each ring is crafted in premium ceramic with an embedded NFC chip. Available in sizes 6 through 12. Custom engravings and bulk pricing available on request.</p>
+    <div class="ring-grid">
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/1.png" alt="Apex"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Apex</div>
+        <div class="ring-desc">Gloss black, gold pinstripe</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/2.png" alt="Pulse"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Pulse</div>
+        <div class="ring-desc">Matte black, electric blue</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/3.png" alt="Ember"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Ember</div>
+        <div class="ring-desc">Black, crimson crystal</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/4.png" alt="Nebula"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Nebula</div>
+        <div class="ring-desc">Galaxy shimmer inlay</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/12.png" alt="Abyss"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Abyss</div>
+        <div class="ring-desc">Mirror-gloss black</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/13.png" alt="Onyx"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>&#128) </div>'" />
+        </div>
+        <div class="ring-name">Onyx</div>
+        <div class="ring-desc">Gloss black dome ceramic</div>
+      </div>
+
+      <div class="ring-card">
+        <div class="ring-img-wrap">
+          <img src="https://tap-ring.com/images/rings/14.png" alt="Nacre"
+            onerror="this.parentElement.innerHTML='<div class=ring-placeholder>🤍</div>'" />
+        </div>
+        <div class="ring-name">Nacre</div>
+        <div class="ring-desc">White nacre, mother of pearl</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPORT TEASER -->
+  <section class="sport-section">
+    <div class="sport-glow"></div>
+    <div class="sport-badge">Coming Soon</div>
+    <h2>Built for the active ones.</h2>
+    <p>The Sport Collection brings the same Tapring technology to a durable, flexible silicone band. Gym-proof, waterproof, ready for anything life throws at it.</p>
+    <div class="sport-features">
+      <span class="sport-tag">Silicone band</span>
+      <span class="sport-tag">Waterproof</span>
+      <span class="sport-tag">Gym-proof</span>
+      <span class="sport-tag">NFC inside</span>
+      <span class="sport-tag">Same platform</span>
+      <span class="sport-tag">Multiple colors</span>
+    </div>
+    <a href="mailto:contact@tap-ring.com?subject=Sport%20Collection%20%E2%80%94%20Notify%20Me" class="btn-ghost">Notify me when it drops &rarr;</a>
+  </section>
+
+  <!-- WHY EVENTS -->
+  <section class="why-section">
+    <p class="section-label">For organizers</p>
+    <h2 class="section-title">Zero management after day one.</h2>
+    <p class="section-sub" style="margin-bottom: 40px;">Once the rings are in your guests' hands, your job is done. Every ring owner manages their own experience independently.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <h4>Ships pre-configured</h4>
+        <p>Each ring arrives ready to tap. Guests claim theirs on the spot — no setup needed on your end, no IT, no onboarding docs.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚙️</div>
+        <h4>Self-managed profiles</h4>
+        <p>Every owner controls their own dashboard. You never receive a support request about updating someone's business card again.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📊</div>
+        <h4>Built-in tap analytics</h4>
+        <p>Every ring tap is tracked automatically. Owners see who tapped, when, and from where — real data, not guesswork.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✉️</div>
+        <h4>Bulk pricing on request</h4>
+        <p>Volume orders for conferences, corporate gifting, and brand partnerships. Reach out and we'll put together a quote.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="https://tap-ring.com/images/logos/tapring-logo.svg" alt="Tapring" />
+      <span>TAPRING</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://tap-ring.com" target="_blank" rel="noopener">tap-ring.com</a>
+      <a href="mailto:contact@tap-ring.com">contact@tap-ring.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
